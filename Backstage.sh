@@ -77,7 +77,7 @@ install_zip() {
         bash $wp/uninstall.sh >/dev/null 2>&1
     fi
     colorEcho $YELLOW "正在安装 $key 到 $wp ..."
-    curl -OL https://raw.githubusercontent.com/FH0/nubia/master/server_script/$zip
+    curl -OL https://raw.githubusercontent.com/King9t/nubia/master/server_script/$zip
     rm -rf $wp
     mkdir -p $wp
     unzip -q -o $zip -d $wp
