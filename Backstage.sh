@@ -67,13 +67,13 @@ install_zip() {
     if [ -d "/usr" -a ! -z "$(command -v apt-get yum)" ]; then
         wp="/usr/local/$key"
     else
-        colorRead $YELLOW "请输入安装目录，例如：/tmp " wp
+        colorRead $YELLOW "请输入安装目录，例如：/usr/local，不能是/bin " wp
         [ -z "$wp" ] && exit 1
         wp=$(echo "$wp/$key" | sed 's|///*|/|g') # 连续的 / 变为一个
     fi
     zip="$key.zip"
     if [ -d "$wp" ]; then
-        colorEcho $YELLOW "正在卸载 $key..."
+        colorEcho $YELLOW "正在卸载 $key ..."
         bash $wp/uninstall.sh >/dev/null 2>&1
     fi
     colorEcho $YELLOW "正在安装 $key 到 $wp ..."
@@ -87,8 +87,8 @@ install_zip() {
 }
 
 check_environment() {
-    if [ "$(id -u)" != "0" ]; then
-        colorEcho $RED "请切换到root用户后再执行此脚本！"
+    if [ "${EUID:-$(id -u)}" != "0" ]; then
+        colorEcho $RED "请切换到 root 用户后再执行此脚本！"
         exit 1
     fi
 
@@ -124,6 +124,8 @@ panel() {
     jzdh_add "ygk" "ygk"
     jzdh_add "l_ygk（linux 客户端）" "l_ygk"
     jzdh_add "stn" "stn"
+    jzdh_add "l-stn（linux 客户端）" "l-stn"
+    jzdh_add "shadowsocks-rust" "shadowsocks-rust"
 
     colorEcho $BLUE "欢迎使用 JZDH 集合脚本"
     var=1
